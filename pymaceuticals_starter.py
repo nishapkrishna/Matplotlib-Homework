@@ -130,6 +130,9 @@ met_site_std.head()
 met_site_mean = met_site_mean.reset_index()
 met_site_mean_pivot = met_site_mean.pivot(index = "Timepoint",columns ="Drug")["Metastatic Sites"]
 
+met_site_std = met_site_std.reset_index()
+met_site_std_pivot = met_site_std.pivot(index = "Timepoint",columns ="Drug")["Metastatic Sites"]
+
 # Preview that Reformatting worked
 met_site_mean_pivot.head()
 
@@ -139,10 +142,10 @@ met_site_mean_pivot.head()
 
 # Generate the Plot (with Error Bars)
 Metastatic = met_site_mean_pivot.index
-plt.errorbar(Metastatic, met_site_mean_pivot["Capomulin"], yerr= met_site_mean_pivot["Capomulin"], color="r", marker="o", markersize=5, linestyle="--", linewidth=0.5)
-plt.errorbar(Metastatic, met_site_mean_pivot["Infubinol"], yerr= met_site_mean_pivot["Infubinol"], color="b", marker="^", markersize=5, linestyle="--", linewidth=0.5)
-plt.errorbar(Metastatic, met_site_mean_pivot["Ketapril"], yerr= met_site_mean_pivot["Ketapril"], color="g", marker="s", markersize=5, linestyle="--", linewidth=0.5)
-plt.errorbar(Metastatic, met_site_mean_pivot["Placebo"], yerr= met_site_mean_pivot["Placebo"], color="k", marker="d", markersize=5, linestyle="--", linewidth=0.5)
+plt.errorbar(Metastatic, met_site_mean_pivot["Capomulin"], yerr= met_site_std_pivot["Capomulin"], color="r", marker="o", markersize=5, linestyle="--", linewidth=0.5)
+plt.errorbar(Metastatic, met_site_mean_pivot["Infubinol"], yerr= met_site_std_pivot["Infubinol"], color="b", marker="^", markersize=5, linestyle="--", linewidth=0.5)
+plt.errorbar(Metastatic, met_site_mean_pivot["Ketapril"], yerr= met_site_std_pivot["Ketapril"], color="g", marker="s", markersize=5, linestyle="--", linewidth=0.5)
+plt.errorbar(Metastatic, met_site_mean_pivot["Placebo"], yerr= met_site_std_pivot["Placebo"], color="k", marker="d", markersize=5, linestyle="--", linewidth=0.5)
 
 plt.title("Metastatic Spread During Treatment")
 plt.xlabel("Treatment Duration (Days)")
